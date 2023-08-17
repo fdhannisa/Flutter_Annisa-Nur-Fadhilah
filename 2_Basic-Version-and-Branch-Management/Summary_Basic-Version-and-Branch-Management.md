@@ -14,4 +14,5 @@ Beberapa contoh instruksi pada git :
 4. git push origin : untuk commit file ke repository.
 5. git checkout nama-branch : untuk pindah branch.
 6. git branch --list : untuk mengetahui ada branch apa saja dan posisi kita di branch mana.
-7. dll.
+7. git pull : untuk mengupdat repository.
+8. dll.
