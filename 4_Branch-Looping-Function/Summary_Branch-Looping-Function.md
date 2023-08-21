@@ -27,3 +27,12 @@
 3.  Break and continue :
     Break, menghentikan proses perulangan.
     Continue, menghentikan satu kali proses pengulangan
+
+4.  Function, kumpulan perintah, dapat digunakan berkali-kali.
+    void main(){
+    halo();
+    }
+
+    void hallo(){
+    print('halo');
+    }
