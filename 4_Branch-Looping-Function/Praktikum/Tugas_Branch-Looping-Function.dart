@@ -19,20 +19,14 @@ void main() {
       print('');
     };
 
-  var num1 = 10;
-  var num2 = 20;
-  var num3 = 30;
-
-  printFactors(num1);
-  printFactors(num2);
-  printFactors(num3);
+  //perulangan
+  print('\n');
+  perulangan();
 }
 
-void printFactors(int number) {
-  print("Faktor dari $number adalah:");
-  for (int i = 1; i <= number; i++) {
-    if (number % i == 0) {
-      print(i);
-    }
+void perulangan() {
+  int i = 10;
+  for (int i = 1; i < 11; i++) {
+    print(i);
   }
 }
