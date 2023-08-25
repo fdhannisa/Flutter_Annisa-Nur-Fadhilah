@@ -29,11 +29,4 @@ void perulangan() {
   for (int i = 1; i < 11; i++) {
     print(i);
   }
-
-  void priamida() {
-    int n;
-    for (int i = 1; i <= n; i++) {
-      print('*');
-    }
-  }
 }
