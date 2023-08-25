@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 void main() {
   print("Masukkan Nilai : ");
@@ -8,6 +9,9 @@ void main() {
   stdout.write('\n\n');
   PiramidaTerbalik(n);
   Piramida(n);
+  stdout.write('\n\n');
+  double hasil = LuasLingkaran(7);
+  print(hasil);
 }
 
 void Piramida(int n) {
@@ -32,4 +36,9 @@ void PiramidaTerbalik(int n) {
     }
     stdout.write('\n');
   }
+}
+
+double LuasLingkaran(double r) {
+  double result = pi * r * r;
+  return result;
 }
