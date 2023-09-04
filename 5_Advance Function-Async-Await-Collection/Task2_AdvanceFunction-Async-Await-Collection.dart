@@ -1,11 +1,15 @@
-void main() {
-  List<List<int>> huruflist = [
-    [a, b, c],
-    [b, d, g],
+void main(List<String> arguments) {
+  List<List<int>> myList = [
+    [0, 1],
+    [3, 4],
+    [6, 8]
   ];
-  for (List<int> sublist in huruflist) {
-    for (int elemen in sublist) {
-      print(elemen);
-    }
-  }
+
+  // // manggil list di inedex 1
+  List<int> pertama = myList[1];
+  print(pertama);
+
+  //convert list to map
+  Map map = {for (var item in myList) '$item': '$item'};
+  print(map);
 }
