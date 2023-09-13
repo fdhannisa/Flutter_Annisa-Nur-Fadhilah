@@ -1,4 +1,4 @@
-int hitungFaktorial(int n) {
+Future<int> hitungFaktorial(int n) async {
   int faktorial = 1;
   for (int i = 1; i <= n; i++) {
     faktorial *= i;
@@ -6,8 +6,8 @@ int hitungFaktorial(int n) {
   return faktorial;
 }
 
-void main() {
+void main() async {
   int angka = 5;
-  int faktorial = hitungFaktorial(angka);
+  int faktorial = await hitungFaktorial(angka);
   print('$faktorial');
 }
