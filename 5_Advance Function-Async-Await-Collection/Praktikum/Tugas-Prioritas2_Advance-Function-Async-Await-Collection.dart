@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 void main(List<String> arguments) {
   List<List<int>> myList = [
@@ -16,20 +17,31 @@ void main(List<String> arguments) {
   print(map);
 
   //Menghitung rata rata
-  int total = 0;
-  List<int> nilai = [];
-  int input = stdin.readLineSync();
-  nilai.add(input);
+  String? input = stdin.readLineSync()!;
+  List<String> nilai = input.split(' ');
 
-  //print hasil input
-  nilai.forEach((hasil) => print(hasil));
+  // Mengonversi nilai-nilai ke dalam tipe data yang sesuai (misalnya, int)
+  List<int> nilaiInt = [];
 
-  //menjumlahkan nilai di dlm list
-  for (int hasil in nilai) {
-    total += hasil;
-    print('$total');
-    ;
-
-    //menjumlahkan nilai di dlm list
+  for (String angka in nilai) {
+    nilaiInt.add(int.parse(angka));
   }
+
+  //print nilai di dalam list
+  print('$nilaiInt');
+
+  //rata-rata
+  int rataRata = hitungRataRata(nilaiInt);
+  print('Rata-rata: $rataRata');
+}
+
+int hitungRataRata(List<int> nilaiInt) {
+  int jumlah = 0;
+
+  for (int hasiljumlah in nilaiInt) {
+    jumlah += hasiljumlah;
+  }
+
+  double rataRataDouble = jumlah / nilaiInt.length;
+  return rataRataDouble.ceil();
 }
