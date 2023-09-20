@@ -1,5 +1,3 @@
-import 'dart:io';
-
 class Course {
   String title;
   String description;
@@ -13,17 +11,15 @@ class Student {
   List<Course> courses = [];
 
   Student(this.name, this.className);
-//Menambahkan course ke daftar student
+
   void addCourse(String title, String description) {
     courses.add(Course(title, description));
   }
 
-// Menghapus course dari daftar student
   void removeCourse(String title) {
     courses.removeWhere((course) => course.title == title);
   }
 
-// Menampilkan semua course yang dimiliki student
   void viewCourses() {
     if (courses.isEmpty) {
       print('$name belum memiliki course.');
@@ -37,20 +33,13 @@ class Student {
 }
 
 void main() {
-  // Membuat objek student
   Student student = Student('John', 'Kelas A');
 
-  // menambahkan beberapa course
   student.addCourse('Matematika', 'Pelajaran Metamatika Dasar');
   student.addCourse('Bahasa Inggris', 'Pelajaran Bahasa Inggris');
   student.addCourse('Sains', 'Pelajaran Sains Alam');
 
-  //Melihat semua course yang dimiliki student
   student.viewCourses();
-
-  //Menghapus salah satu course
   student.removeCourse('Bahasa Inggris');
-
-  // Melihat semua course setelah menghapus
   student.viewCourses();
 }
