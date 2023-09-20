@@ -26,7 +26,7 @@ class Student {
     } else {
       print('$name memiliki ${courses.length} course:');
       for (var course in courses) {
-        print(' - ${course.title}: ${course.description}');
+        print('${course.title}: ${course.description}');
       }
     }
   }
