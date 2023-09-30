@@ -12,11 +12,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
 
   @override
-  Widget build(BuildContext context)  {
+  Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Scaffold
-          (appBar: AppBar(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
           title: const Text('My Flutter App'),
           backgroundColor: tdbgcolor,
           centerTitle: true,
@@ -29,32 +29,26 @@ class MyApp extends StatelessWidget {
             )
           ],
         ),
-          body:
-            ListView.builder(
-              itemCount: course.length,
-              itemBuilder:(context, index) => Card(
-                child: ListTile(
-                  title: Text(course[index].nama_matkul),
-                ),
-              ),
-            ) ,
-          bottomNavigationBar: BottomNavigationBar(
+        body: ListView.builder(
+          itemCount: course.length,
+          itemBuilder: (context, index) => Card(
+            child: ListTile(
+              title: Text(course[index].nama_matkul),
+            ),
+          ),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
             backgroundColor: tdbgcolor,
             selectedItemColor: tdwhite,
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
-              BottomNavigationBarItem(icon: Icon(Icons.search), label:'Search'),
-              BottomNavigationBarItem(icon: Icon(Icons.info), label:'Information'),
-            ]
-          ),
-          ),
-
-
-
-
-
-
-
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.favorite), label: 'Favorites'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.search), label: 'Search'),
+              BottomNavigationBarItem(
+                  icon: Icon(Icons.info), label: 'Information'),
+            ]),
+      ),
     );
   }
 }
