@@ -17,11 +17,6 @@ class _FlutterFormState extends State<FlutterForm> {
 
   List<ContactData> contactList = [];
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   doSubmitForm() {
     ContactData contactData = ContactData(
       fullName:
