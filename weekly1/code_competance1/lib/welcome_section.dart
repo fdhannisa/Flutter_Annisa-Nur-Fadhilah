@@ -15,13 +15,31 @@ class _FlutterFormState extends State<FlutterForm> {
   var emailController = TextEditingController();
   var massageController = TextEditingController();
 
+  List<ContactData> contactList = [];
+
   @override
   void dispose() {
-    inputControllerLastName.dispose();
-    inputControllerFirstName.dispose();
-    massageController.dispose();
-    emailController.dispose();
     super.dispose();
+  }
+
+  doSubmitForm() {
+    ContactData contactData = ContactData(
+      fullName:
+          "${inputControllerFirstName.text} ${inputControllerLastName.text}",
+      email: emailController.text,
+      message: massageController.text,
+    );
+    contactList.insert(0, contactData);
+    doClearForm();
+  }
+
+  doClearForm() {
+    setState(() {
+      inputControllerLastName.clear();
+      inputControllerFirstName.clear();
+      emailController.clear();
+      massageController.clear();
+    });
   }
 
   @override
@@ -66,7 +84,6 @@ class _FlutterFormState extends State<FlutterForm> {
                       textStyle: TextStyle(color: Colors.black54)),
                 ),
               ),
-
               Align(
                 alignment: Alignment.center,
                 child: Text(
@@ -75,8 +92,8 @@ class _FlutterFormState extends State<FlutterForm> {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
                       textStyle: TextStyle(color: Colors.black54),
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
                 ),
               ),
               Row(
@@ -140,8 +157,7 @@ class _FlutterFormState extends State<FlutterForm> {
                     child: TextButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-
-                          setState(() {});
+                          doSubmitForm();
                         }
                       },
                       style: TextButton.styleFrom(
@@ -156,14 +172,9 @@ class _FlutterFormState extends State<FlutterForm> {
                   Expanded(
                     child: TextButton(
                       onPressed: () {
-                        inputControllerFirstName.clear();
-                        inputControllerLastName.clear();
-                        emailController.clear();
-                        massageController.clear();
-                        setState(() {});
+                        doClearForm();
                       },
-                      style: TextButton.styleFrom(
-                          backgroundColor: Colors.red),
+                      style: TextButton.styleFrom(backgroundColor: Colors.red),
                       child: Text(
                         "Reset",
                         style: TextStyle(color: Colors.white),
@@ -180,29 +191,60 @@ class _FlutterFormState extends State<FlutterForm> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   )),
               SizedBox(height: 24),
-              Row(
-                children: [
-                  Expanded(child: Text("Nama Lengkap")),
-                  Text("   :   "),
-                  Expanded(child: Text("${inputControllerFirstName.text}")),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(child: Text("Email")),
-                  Text("   :   "),
-                  Expanded(child: Text("${emailController.text}")),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(child: Text("Message")),
-                  Text("   :   "),
-                  Expanded(child: Text("${massageController.text}")),
-                ],
-              ),
+              contactList.isEmpty
+                  ? Container()
+                  : ListView.separated(
+                      shrinkWrap: true,
+                      primary: false,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        ContactData contactData = contactList[index];
+                        return Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(child: Text("Nama Lengkap")),
+                                Text("   :   "),
+                                Expanded(
+                                  child: Text(contactData.fullName!),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Expanded(child: Text("Email")),
+                                Text("   :   "),
+                                Expanded(child: Text(contactData.email!)),
+                              ],
+                            ),
+                            Row(
+                              children: [
+                                Expanded(child: Text("Message")),
+                                Text("   :   "),
+                                Expanded(child: Text(contactData.message!)),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return Divider();
+                      },
+                      itemCount: contactList.length),
             ],
           ),
         ));
   }
+}
+
+class ContactData {
+  String? fullName;
+  String? email;
+  String? message;
+
+  ContactData({
+    this.fullName,
+    this.email,
+    this.message,
+  });
 }

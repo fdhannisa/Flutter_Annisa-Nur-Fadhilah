@@ -12,17 +12,15 @@ class Kontak {
 
 List kontak = [
   Kontak(
-   username: 'Annisa',
-   nomor: '082289975623',
+    username: 'Annisa',
+    nomor: '082289975623',
     image: null,
   ),
-
   Kontak(
     username: 'Choco',
     nomor: '08896765643',
     image: null,
   ),
-
   Kontak(
     username: 'Nica',
     nomor: '098786745',
