@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage>{
   var inputControllerNoHP = TextEditingController();
   var inputControllerNama = TextEditingController();
 
+
   List<ContactData> contactList = [];
 
   DateTime _dueDate = DateTime.now();
@@ -76,6 +77,7 @@ class _HomePageState extends State<HomePage>{
                 ),
 
               buildContactList(context),
+
           ],
           ),
         ),
@@ -99,6 +101,7 @@ class _HomePageState extends State<HomePage>{
             return null;
           },
         ),
+
 
         TextFormField(
           decoration: InputDecoration(
