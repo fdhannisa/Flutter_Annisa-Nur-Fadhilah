@@ -1,38 +1,33 @@
 import 'package:flutter/material.dart';
-import 'contact_model.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:open_file/open_file.dart';
+import 'contact_data.dart';
 
-class ContactViewModel with ChangeNotifier {
+class ContactViewModel {
   var formKey = GlobalKey<FormState>();
   var inputControllerNoHP = TextEditingController();
   var inputControllerNama = TextEditingController();
 
-  List<ContactModel> _contactList = [];
+  List<ContactData> _contactList = [];
 
   DateTime _dueDate = DateTime.now();
-  DateTime currentDate = DateTime.now();
+  final currentDate = DateTime.now();
   Color _currentColor = Colors.black26;
-  String? _filePath;
 
-  List<ContactModel> get contactList => _contactList;
-
+  TextEditingController get ControllerNama => inputControllerNama;
+  TextEditingController get ControllerNoHP => inputControllerNoHP;
+  List<ContactData> get contactList => _contactList;
   DateTime get dueDate => _dueDate;
-
   set dueDate(DateTime value) {
     _dueDate = value;
   }
 
-  DateTime get currentDate => currentDate;
-
+  DateTime get getCurrentDate => currentDate;
   Color get currentColor => _currentColor;
-
   set currentColor(Color value) {
     _currentColor = value;
-  }
-
-  String? get filePath => _filePath;
-
-  set filePath(String? value) {
-    _filePath = value;
   }
 
   bool isInputValid() {
@@ -47,28 +42,139 @@ class ContactViewModel with ChangeNotifier {
   }
 
   void addContact() {
-    ContactModel contactModel = ContactModel(
+    ContactData contactData = ContactData(
       name: "${inputControllerNama.text}",
       nohp: "${inputControllerNoHP.text}",
-      color: _currentColor,
       dueDate: _dueDate,
+      color: _currentColor,
       filePath: _filePath,
     );
-    _contactList.insert(0, contactModel);
+    _contactList.insert(0, contactData);
     clearForm();
-    notifyListeners();
   }
 
   void clearForm() {
     inputControllerNoHP.clear();
     inputControllerNama.clear();
-    _currentColor = Colors.black26;
     _dueDate = DateTime.now();
+    _currentColor = Colors.black26;
     _filePath = null;
   }
 
   void deleteContact(int index) {
     _contactList.removeAt(index);
-    notifyListeners();
+  }
+
+  Future<void> pickAndOpenFile() async {
+    final result = await FilePicker.platform.pickFiles();
+    if (result == null) return;
+
+    final file = result.files.first;
+    _filePath = file.path;
+    openFile(file);
+  }
+
+  void openFile(PlatformFile file) {
+    OpenFile.open(file.path);
+  }
+
+  Widget buildColorPicker(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Color'),
+        const SizedBox(
+          height: 10,
+        ),
+        Container(
+          height: 100,
+          width: double.infinity,
+          color: currentColor,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        Center(
+          child: ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(currentColor),
+            ),
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text('Pick Your Color'),
+                    content: ColorPicker(
+                      pickerColor: currentColor,
+                      onColorChanged: (color) {
+                        _currentColor = color;
+                      },
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text('Save'),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            child: const Text('Pick Color'),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget buildDatePicker(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Date'),
+        TextButton(
+          onPressed: () async {
+            final selectDate = await showDatePicker(
+              context: context,
+              initialDate: currentDate,
+              firstDate: DateTime(1990),
+              lastDate: DateTime(currentDate.year + 5),
+            );
+
+            if (selectDate != null) {
+              _dueDate = selectDate;
+            }
+          },
+          child: const Text('Select'),
+        ),
+        Text(
+          DateFormat('dd-MM-yy').format(_dueDate),
+        ),
+      ],
+    );
+  }
+
+  String? _filePath;
+
+  Widget buildFilePicker() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text('Pick File'),
+        const SizedBox(height: 10),
+        Center(
+          child: ElevatedButton(
+            onPressed: () {
+              pickAndOpenFile();
+            },
+            child: const Text('Pick and Open File'),
+          ),
+        ),
+      ],
+    );
   }
 }
+

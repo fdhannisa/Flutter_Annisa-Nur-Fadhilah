@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:file_picker/file_picker.dart';
-
+import 'contact_form_data.dart';
+import 'contact_list.dart';
 import 'contact_view_model.dart';
 
 class HomePage extends StatelessWidget {
@@ -12,17 +10,15 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('MVVM Example'),
+        title: const Text('Interactive Widget'),
         centerTitle: true,
       ),
       body: Container(
         padding: const EdgeInsets.all(16),
         child: ListView(
           children: [
-            _contactViewModel.buildContact(context),
-            _contactViewModel.buildDatePicker(context),
-            _contactViewModel.buildColorPicker(context),
-            _contactViewModel.buildFilePicker(),
+            ContactForm(contactViewModel: _contactViewModel),
+            ContactList(contactViewModel: _contactViewModel),
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -31,13 +27,11 @@ class HomePage extends StatelessWidget {
                 child: const Text('Submit'),
               ),
             ),
-            _contactViewModel.buildContactList(context),
           ],
         ),
       ),
     );
   }
 }
-
 
 
