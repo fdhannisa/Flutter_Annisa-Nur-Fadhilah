@@ -1,8 +1,15 @@
-Form adalah komponen yang digunkaan untuk mengumpulkan data dari pengguna. Data yang diisikan dapat berjumlah 1 atau bahkan lebih.
+Form digunakan untuk berinteraksi dengan pengguna, dapat menerima data yang diisi oleh user. Data yang diisikan dapat berjumlah 1 atau bahkan lebih, dibuat menggunakan StatefulWidget. Setiap keadaan form akan disimpan menggunakan GlobalKey<FormState>.
+
+var formKey = GlobalKey<FormState>();
+Form( //method build
+key: formKey, //memanggil properti formKey
+child : inputWidgets
+)
 
 Format input pada form dapat berupa:
 
 1. Text Field, menerima isian data dari pengguna , isiannya dapat lebih dari satu.
+   Data diambil menggunakan TextEditingController.
    ex. var inputController = TextEditingController();
    TextField(
    controller: inputController,
